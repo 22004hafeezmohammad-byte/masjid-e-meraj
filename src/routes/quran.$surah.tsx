@@ -94,6 +94,9 @@ function Page() {
 
       {ayahs && ayahs.length > 0 && (
         <div className="flex flex-col gap-4 pb-12">
+          <p className="text-xs text-muted-foreground text-center">
+            {ayahs.length} Ayahs loaded
+          </p>
           {ayahs.map((v) => (
             <div
               key={v.number}
@@ -110,15 +113,19 @@ function Page() {
               <p
                 dir="rtl"
                 lang="ur"
-                className="font-arabic text-xl leading-loose text-right text-foreground mb-2"
+                className="font-arabic text-xl leading-loose text-right text-card-foreground mb-2"
+                style={{ color: "var(--card-foreground)" }}
               >
-                {v.urdu}
+                {v.urdu || "—"}
               </p>
               <p className="text-sm italic text-muted-foreground">
                 {v.romanUrdu ?? "Roman Urdu translation coming soon"}
               </p>
             </div>
           ))}
+          <noscript>
+            <p>Ayahs loaded but not rendering</p>
+          </noscript>
         </div>
       )}
     </div>
