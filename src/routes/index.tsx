@@ -54,23 +54,21 @@ function Home() {
       </header>
 
       {/* Mosque header */}
-      <section className="text-center mb-6">
-        <div className="mx-auto inline-flex items-center justify-center h-16 w-16 rounded-full bg-gradient-brown text-brown-foreground shadow-card mb-3">
-          <MosqueIcon className="h-10 w-10" />
+      <section className="text-center mb-3">
+        <div className="mx-auto inline-flex items-center justify-center h-12 w-12 rounded-full bg-gradient-brown text-brown-foreground shadow-card mb-2">
+          <MosqueIcon className="h-8 w-8" />
         </div>
-        <h1 className="text-xl font-bold tracking-wide text-primary">MASJID-E-MARAJ</h1>
-        <p className="flex items-center justify-center gap-1 text-xs text-muted-foreground mt-1">
+        <h1 className="text-lg font-bold tracking-wide text-primary">MASJID-E-MARAJ</h1>
+        <p className="flex items-center justify-center gap-1 text-[11px] text-muted-foreground mt-0.5">
           <MapPin className="h-3 w-3" /> Kallakunta Colony, Siddipet
         </p>
-        <p className="mt-3 text-sm font-medium text-foreground">
-          {now.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+        <p className="mt-1 text-xs text-muted-foreground">
+          {now.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })} · {formatHijri(now)}
         </p>
-        <p className="text-xs text-muted-foreground">{formatHijri(now)}</p>
       </section>
 
       {/* Greeting */}
-      <div className="mb-4 px-1">
-        <p className="font-arabic text-base text-primary">السلام عليكم</p>
+      <div className="mb-3 px-1">
         <p className="text-sm text-foreground">Assalamu Alaikum, <span className="font-semibold">{name}</span></p>
       </div>
 
