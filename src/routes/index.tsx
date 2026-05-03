@@ -37,9 +37,9 @@ function Home() {
   const countdown = hours > 0 ? `${hours}h ${mins}m` : `${mins} min`;
 
   return (
-    <div className="px-5 pt-6">
+    <div className="px-5 pt-5 pb-4 animate-fade-in">
       {/* Top bar */}
-      <header className="flex items-center justify-between mb-6">
+      <header className="flex items-center justify-between mb-4">
         <button className="h-10 w-10 rounded-full bg-card shadow-soft grid place-items-center text-foreground" aria-label="Menu">
           <Menu className="h-5 w-5" />
         </button>
