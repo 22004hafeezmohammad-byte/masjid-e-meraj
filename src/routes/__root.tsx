@@ -29,14 +29,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Masjid-E-Maraj app provides prayer times, Quran in Urdu with" },
+      { name: "description", content: "Masjid Maraj Connect is a mobile-first web app for Masjid-E-Maraj, offering prayer times, Quran, and Islamic guidance." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Masjid-E-Maraj app provides prayer times, Quran in Urdu with" },
+      { property: "og:description", content: "Masjid Maraj Connect is a mobile-first web app for Masjid-E-Maraj, offering prayer times, Quran, and Islamic guidance." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Masjid-E-Maraj app provides prayer times, Quran in Urdu with" },
+      { name: "twitter:description", content: "Masjid Maraj Connect is a mobile-first web app for Masjid-E-Maraj, offering prayer times, Quran, and Islamic guidance." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9d95c5cf-d395-4262-80ef-c2d11fd2cf1f/id-preview-fa7c3f03--b0ce7093-e009-47a0-aa21-ac1af9214ac4.lovable.app-1777796451158.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9d95c5cf-d395-4262-80ef-c2d11fd2cf1f/id-preview-fa7c3f03--b0ce7093-e009-47a0-aa21-ac1af9214ac4.lovable.app-1777796451158.png" },
     ],
     links: [
       {
