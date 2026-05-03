@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
-import { Route as TasbeehRouteImport } from './routes/tasbeeh'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as QuranRouteImport } from './routes/quran'
 import { Route as BasicsRouteImport } from './routes/basics'
@@ -21,11 +20,6 @@ import { Route as QuranSurahRouteImport } from './routes/quran.$surah'
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
   path: '/welcome',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TasbeehRoute = TasbeehRouteImport.update({
-  id: '/tasbeeh',
-  path: '/tasbeeh',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -65,7 +59,6 @@ export interface FileRoutesByFullPath {
   '/basics': typeof BasicsRoute
   '/quran': typeof QuranRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/tasbeeh': typeof TasbeehRoute
   '/welcome': typeof WelcomeRoute
   '/quran/$surah': typeof QuranSurahRoute
 }
@@ -75,7 +68,6 @@ export interface FileRoutesByTo {
   '/basics': typeof BasicsRoute
   '/quran': typeof QuranRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/tasbeeh': typeof TasbeehRoute
   '/welcome': typeof WelcomeRoute
   '/quran/$surah': typeof QuranSurahRoute
 }
@@ -86,7 +78,6 @@ export interface FileRoutesById {
   '/basics': typeof BasicsRoute
   '/quran': typeof QuranRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/tasbeeh': typeof TasbeehRoute
   '/welcome': typeof WelcomeRoute
   '/quran/$surah': typeof QuranSurahRoute
 }
@@ -98,7 +89,6 @@ export interface FileRouteTypes {
     | '/basics'
     | '/quran'
     | '/settings'
-    | '/tasbeeh'
     | '/welcome'
     | '/quran/$surah'
   fileRoutesByTo: FileRoutesByTo
@@ -108,7 +98,6 @@ export interface FileRouteTypes {
     | '/basics'
     | '/quran'
     | '/settings'
-    | '/tasbeeh'
     | '/welcome'
     | '/quran/$surah'
   id:
@@ -118,7 +107,6 @@ export interface FileRouteTypes {
     | '/basics'
     | '/quran'
     | '/settings'
-    | '/tasbeeh'
     | '/welcome'
     | '/quran/$surah'
   fileRoutesById: FileRoutesById
@@ -129,7 +117,6 @@ export interface RootRouteChildren {
   BasicsRoute: typeof BasicsRoute
   QuranRoute: typeof QuranRouteWithChildren
   SettingsRoute: typeof SettingsRoute
-  TasbeehRoute: typeof TasbeehRoute
   WelcomeRoute: typeof WelcomeRoute
 }
 
@@ -140,13 +127,6 @@ declare module '@tanstack/react-router' {
       path: '/welcome'
       fullPath: '/welcome'
       preLoaderRoute: typeof WelcomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tasbeeh': {
-      id: '/tasbeeh'
-      path: '/tasbeeh'
-      fullPath: '/tasbeeh'
-      preLoaderRoute: typeof TasbeehRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -210,7 +190,6 @@ const rootRouteChildren: RootRouteChildren = {
   BasicsRoute: BasicsRoute,
   QuranRoute: QuranRouteWithChildren,
   SettingsRoute: SettingsRoute,
-  TasbeehRoute: TasbeehRoute,
   WelcomeRoute: WelcomeRoute,
 }
 export const routeTree = rootRouteImport

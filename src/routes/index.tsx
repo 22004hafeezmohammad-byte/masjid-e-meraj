@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Bell, Menu, Settings as SettingsIcon, MapPin, Heart } from "lucide-react";
+import { Bell, Menu, Settings as SettingsIcon, MapPin } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { MosqueIcon } from "@/components/MosqueIcon";
 import { storage } from "@/lib/storage";
-import { PRAYERS, FAST, getCurrentAndNext, formatHijri } from "@/lib/prayer";
+import { PRAYERS, getCurrentAndNext, formatHijri } from "@/lib/prayer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,9 +37,9 @@ function Home() {
   const countdown = hours > 0 ? `${hours}h ${mins}m` : `${mins} min`;
 
   return (
-    <div className="px-5 pt-6">
+    <div className="px-5 pt-5 pb-4 animate-fade-in">
       {/* Top bar */}
-      <header className="flex items-center justify-between mb-6">
+      <header className="flex items-center justify-between mb-4">
         <button className="h-10 w-10 rounded-full bg-card shadow-soft grid place-items-center text-foreground" aria-label="Menu">
           <Menu className="h-5 w-5" />
         </button>
@@ -54,55 +54,41 @@ function Home() {
       </header>
 
       {/* Mosque header */}
-      <section className="text-center mb-6">
-        <div className="mx-auto inline-flex items-center justify-center h-16 w-16 rounded-full bg-gradient-brown text-brown-foreground shadow-card mb-3">
-          <MosqueIcon className="h-10 w-10" />
+      <section className="text-center mb-3">
+        <div className="mx-auto inline-flex items-center justify-center h-12 w-12 rounded-full bg-gradient-brown text-brown-foreground shadow-card mb-2">
+          <MosqueIcon className="h-8 w-8" />
         </div>
-        <h1 className="text-xl font-bold tracking-wide text-primary">MASJID-E-MARAJ</h1>
-        <p className="flex items-center justify-center gap-1 text-xs text-muted-foreground mt-1">
+        <h1 className="text-lg font-bold tracking-wide text-primary">MASJID-E-MARAJ</h1>
+        <p className="flex items-center justify-center gap-1 text-[11px] text-muted-foreground mt-0.5">
           <MapPin className="h-3 w-3" /> Kallakunta Colony, Siddipet
         </p>
-        <p className="mt-3 text-sm font-medium text-foreground">
-          {now.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+        <p className="mt-1 text-xs text-muted-foreground">
+          {now.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })} · {formatHijri(now)}
         </p>
-        <p className="text-xs text-muted-foreground">{formatHijri(now)}</p>
       </section>
 
       {/* Greeting */}
-      <div className="mb-4 px-1">
-        <p className="font-arabic text-base text-primary">السلام عليكم</p>
+      <div className="mb-3 px-1">
         <p className="text-sm text-foreground">Assalamu Alaikum, <span className="font-semibold">{name}</span></p>
       </div>
 
       {/* Next prayer hero */}
-      <section className="rounded-3xl bg-gradient-coral text-coral-foreground p-5 shadow-coral mb-5">
+      <section className="rounded-3xl bg-gradient-coral text-coral-foreground p-5 shadow-coral mb-4 animate-fade-in animate-pulse-glow">
         <p className="text-xs uppercase tracking-widest opacity-90">Next Salah</p>
         <div className="flex items-end justify-between mt-1">
           <div>
-            <h2 className="text-3xl font-bold">{next.name}</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{next.name}</h2>
             <p className="text-sm opacity-90">at {next.time}</p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold">{countdown}</p>
+            <p key={countdown} className="text-2xl font-bold tabular-nums animate-fade-in">{countdown}</p>
             <p className="text-xs opacity-90">remaining</p>
           </div>
         </div>
       </section>
 
-      {/* Fast section */}
-      <section className="grid grid-cols-2 gap-3 mb-5">
-        <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/50">
-          <p className="text-xs text-muted-foreground">Fast Begins</p>
-          <p className="text-lg font-bold text-foreground mt-1">{FAST.begins}</p>
-        </div>
-        <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/50">
-          <p className="text-xs text-muted-foreground">Fast Ends</p>
-          <p className="text-lg font-bold text-foreground mt-1">{FAST.ends}</p>
-        </div>
-      </section>
-
       {/* Prayer times card */}
-      <section className="rounded-3xl bg-gradient-brown text-brown-foreground p-2 shadow-card mb-5 overflow-hidden">
+      <section className="rounded-3xl bg-gradient-brown text-brown-foreground p-2 shadow-card overflow-hidden animate-slide-up">
         <div className="flex justify-between px-4 py-2 text-xs uppercase tracking-wider opacity-80">
           <span>Prayer</span>
           <span>Time</span>
@@ -114,32 +100,21 @@ function Home() {
             return (
               <li
                 key={p.name}
-                className={`flex items-center justify-between px-4 py-3 ${
-                  active ? "bg-white/15" : upcoming ? "bg-white/8" : ""
+                className={`flex items-center justify-between px-4 py-3 transition-all active:scale-[0.98] ${
+                  active ? "bg-white/15" : upcoming ? "bg-white/10 ring-1 ring-inset ring-white/30" : ""
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span className="text-xl">{p.icon}</span>
                   <span className="font-semibold">{p.name}</span>
-                  {active && <span className="text-[10px] px-2 py-0.5 rounded-full bg-coral text-coral-foreground">NOW</span>}
-                  {upcoming && <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20">NEXT</span>}
+                  {active && <span className="text-[10px] px-2 py-0.5 rounded-full bg-coral text-coral-foreground animate-pulse">NOW</span>}
+                  {upcoming && <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/25">NEXT</span>}
                 </div>
                 <span className="font-mono text-sm">{p.time}</span>
               </li>
             );
           })}
         </ul>
-      </section>
-
-      {/* Jamaat + Donation */}
-      <section className="flex items-center justify-between bg-card rounded-3xl p-5 shadow-soft border border-border/50 mb-6">
-        <div>
-          <p className="text-xs text-muted-foreground">Dhuhr Jamaat</p>
-          <p className="text-2xl font-bold text-primary">1:45 PM</p>
-        </div>
-        <button className="flex items-center gap-2 bg-gradient-coral text-coral-foreground px-4 py-3 rounded-2xl font-semibold shadow-coral">
-          <Heart className="h-4 w-4 fill-current" /> Donate
-        </button>
       </section>
     </div>
   );
