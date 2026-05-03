@@ -11,12 +11,17 @@ export const Route = createFileRoute("/quran/$surah")({
       { name: "description", content: "Read Surah with Urdu translation." },
     ],
   }),
-  component: () => (
-    <AppShell>
-      <Page />
-    </AppShell>
-  ),
+  component: RouteComponent,
 });
+
+function RouteComponent() {
+  const { surah } = Route.useParams();
+  return (
+    <AppShell>
+      <Page key={surah} />
+    </AppShell>
+  );
+}
 
 function Page() {
   const { surah } = Route.useParams();
