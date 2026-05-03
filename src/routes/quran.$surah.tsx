@@ -63,14 +63,15 @@ function Page() {
       )}
 
       {loading && (
-        <div className="flex items-center justify-center py-16 text-muted-foreground">
+        <div className="flex flex-col items-center justify-center py-16 text-muted-foreground gap-2">
           <Loader2 className="h-6 w-6 animate-spin" />
+          <p className="text-sm">Loading Quran...</p>
         </div>
       )}
 
       {error && (
         <div className="bg-card rounded-2xl p-6 text-center border border-border/50">
-          <p className="text-sm text-foreground mb-3">{error}</p>
+          <p className="text-sm text-foreground mb-3">Unable to load Surah, please try again</p>
           <button
             onClick={load}
             className="inline-flex items-center gap-2 bg-gradient-coral text-coral-foreground rounded-full px-4 py-2 text-sm font-medium"
