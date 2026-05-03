@@ -5,7 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { MosqueIcon } from "@/components/MosqueIcon";
 import { storage } from "@/lib/storage";
-import { PRAYERS, FAST, getCurrentAndNext, formatHijri } from "@/lib/prayer";
+import { PRAYERS, getCurrentAndNext, formatHijri } from "@/lib/prayer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
