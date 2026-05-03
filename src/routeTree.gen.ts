@@ -9,38 +9,174 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
+import { Route as TasbeehRouteImport } from './routes/tasbeeh'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as QuranRouteImport } from './routes/quran'
+import { Route as BasicsRouteImport } from './routes/basics'
+import { Route as AyahRouteImport } from './routes/ayah'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as QuranSurahRouteImport } from './routes/quran.$surah'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasbeehRoute = TasbeehRouteImport.update({
+  id: '/tasbeeh',
+  path: '/tasbeeh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuranRoute = QuranRouteImport.update({
+  id: '/quran',
+  path: '/quran',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BasicsRoute = BasicsRouteImport.update({
+  id: '/basics',
+  path: '/basics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AyahRoute = AyahRouteImport.update({
+  id: '/ayah',
+  path: '/ayah',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuranSurahRoute = QuranSurahRouteImport.update({
+  id: '/$surah',
+  path: '/$surah',
+  getParentRoute: () => QuranRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ayah': typeof AyahRoute
+  '/basics': typeof BasicsRoute
+  '/quran': typeof QuranRouteWithChildren
+  '/settings': typeof SettingsRoute
+  '/tasbeeh': typeof TasbeehRoute
+  '/welcome': typeof WelcomeRoute
+  '/quran/$surah': typeof QuranSurahRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ayah': typeof AyahRoute
+  '/basics': typeof BasicsRoute
+  '/quran': typeof QuranRouteWithChildren
+  '/settings': typeof SettingsRoute
+  '/tasbeeh': typeof TasbeehRoute
+  '/welcome': typeof WelcomeRoute
+  '/quran/$surah': typeof QuranSurahRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ayah': typeof AyahRoute
+  '/basics': typeof BasicsRoute
+  '/quran': typeof QuranRouteWithChildren
+  '/settings': typeof SettingsRoute
+  '/tasbeeh': typeof TasbeehRoute
+  '/welcome': typeof WelcomeRoute
+  '/quran/$surah': typeof QuranSurahRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ayah'
+    | '/basics'
+    | '/quran'
+    | '/settings'
+    | '/tasbeeh'
+    | '/welcome'
+    | '/quran/$surah'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ayah'
+    | '/basics'
+    | '/quran'
+    | '/settings'
+    | '/tasbeeh'
+    | '/welcome'
+    | '/quran/$surah'
+  id:
+    | '__root__'
+    | '/'
+    | '/ayah'
+    | '/basics'
+    | '/quran'
+    | '/settings'
+    | '/tasbeeh'
+    | '/welcome'
+    | '/quran/$surah'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AyahRoute: typeof AyahRoute
+  BasicsRoute: typeof BasicsRoute
+  QuranRoute: typeof QuranRouteWithChildren
+  SettingsRoute: typeof SettingsRoute
+  TasbeehRoute: typeof TasbeehRoute
+  WelcomeRoute: typeof WelcomeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasbeeh': {
+      id: '/tasbeeh'
+      path: '/tasbeeh'
+      fullPath: '/tasbeeh'
+      preLoaderRoute: typeof TasbeehRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quran': {
+      id: '/quran'
+      path: '/quran'
+      fullPath: '/quran'
+      preLoaderRoute: typeof QuranRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/basics': {
+      id: '/basics'
+      path: '/basics'
+      fullPath: '/basics'
+      preLoaderRoute: typeof BasicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ayah': {
+      id: '/ayah'
+      path: '/ayah'
+      fullPath: '/ayah'
+      preLoaderRoute: typeof AyahRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +184,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quran/$surah': {
+      id: '/quran/$surah'
+      path: '/$surah'
+      fullPath: '/quran/$surah'
+      preLoaderRoute: typeof QuranSurahRouteImport
+      parentRoute: typeof QuranRoute
+    }
   }
 }
 
+interface QuranRouteChildren {
+  QuranSurahRoute: typeof QuranSurahRoute
+}
+
+const QuranRouteChildren: QuranRouteChildren = {
+  QuranSurahRoute: QuranSurahRoute,
+}
+
+const QuranRouteWithChildren = QuranRoute._addFileChildren(QuranRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AyahRoute: AyahRoute,
+  BasicsRoute: BasicsRoute,
+  QuranRoute: QuranRouteWithChildren,
+  SettingsRoute: SettingsRoute,
+  TasbeehRoute: TasbeehRoute,
+  WelcomeRoute: WelcomeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
