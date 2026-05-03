@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Bell, Menu, Settings as SettingsIcon, MapPin, Heart } from "lucide-react";
+import { Bell, Menu, Settings as SettingsIcon, MapPin } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { MosqueIcon } from "@/components/MosqueIcon";
