@@ -65,7 +65,7 @@ function Page() {
       {loading && (
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground gap-2">
           <Loader2 className="h-6 w-6 animate-spin" />
-          <p className="text-sm">Loading Quran...</p>
+          <p className="text-sm">Loading Surah...</p>
         </div>
       )}
 
