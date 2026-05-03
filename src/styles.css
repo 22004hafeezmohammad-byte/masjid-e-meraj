@@ -66,8 +66,8 @@
   --coral-foreground: oklch(0.99 0.01 80);
   --gold: oklch(0.75 0.13 75);
 
-  --gradient-brown: linear-gradient(135deg, oklch(0.45 0.08 55), oklch(0.35 0.06 50));
-  --gradient-coral: linear-gradient(135deg, oklch(0.82 0.13 30), oklch(0.72 0.15 20));
+  --gradient-brown: linear-gradient(135deg, #8B6F47 0%, #5C3D2E 100%);
+  --gradient-coral: linear-gradient(135deg, #F36F7C 0%, #E85A70 100%);
   --gradient-bg: linear-gradient(180deg, oklch(0.96 0.018 80), oklch(0.94 0.025 75));
   --shadow-card: 0 8px 24px -8px oklch(0.4 0.06 50 / 0.18);
   --shadow-soft: 0 4px 12px -4px oklch(0.4 0.06 50 / 0.12);
