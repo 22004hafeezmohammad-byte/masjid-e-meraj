@@ -11,12 +11,17 @@ export const Route = createFileRoute("/quran/$surah")({
       { name: "description", content: "Read Surah with Urdu translation." },
     ],
   }),
-  component: () => (
-    <AppShell>
-      <Page />
-    </AppShell>
-  ),
+  component: RouteComponent,
 });
+
+function RouteComponent() {
+  const { surah } = Route.useParams();
+  return (
+    <AppShell>
+      <Page key={surah} />
+    </AppShell>
+  );
+}
 
 function Page() {
   const { surah } = Route.useParams();
@@ -46,7 +51,7 @@ function Page() {
   if (!n || isNaN(n)) return <div className="p-6">Surah not found.</div>;
 
   return (
-    <div className="px-5 pt-6 animate-fade-in">
+    <div className="px-5 pt-6 pb-8 min-h-screen animate-fade-in">
       <Link to="/quran" className="inline-flex items-center gap-1 text-sm text-muted-foreground mb-4">
         <ChevronLeft className="h-4 w-4" /> Back
       </Link>
@@ -81,12 +86,18 @@ function Page() {
         </div>
       )}
 
-      {ayahs && (
-        <div className="space-y-3 pb-6">
+      {!loading && !error && ayahs && ayahs.length === 0 && (
+        <div className="bg-card rounded-2xl p-6 text-center border border-border/50 text-sm text-muted-foreground">
+          No Ayahs found
+        </div>
+      )}
+
+      {ayahs && ayahs.length > 0 && (
+        <div className="flex flex-col gap-4 pb-12">
           {ayahs.map((v) => (
             <div
               key={v.number}
-              className="bg-card rounded-2xl p-5 shadow-soft border border-border/50"
+              className="bg-card text-card-foreground rounded-2xl p-5 shadow-soft border border-border/50"
             >
               <div className="flex items-center justify-between mb-3">
                 <span className="h-7 w-7 rounded-full bg-gradient-coral text-coral-foreground text-xs font-bold grid place-items-center">
