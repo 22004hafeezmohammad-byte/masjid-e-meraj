@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
-import { SURAHS } from "@/lib/content";
-import { BookOpen, ChevronRight } from "lucide-react";
+import { BookOpen, ChevronRight, Loader2, RefreshCw } from "lucide-react";
+import { fetchSurahList, type SurahMeta } from "@/lib/quranApi";
 
 export const Route = createFileRoute("/quran")({
   head: () => ({
     meta: [
       { title: "Quran — Masjid-E-Maraj" },
-      { name: "description", content: "Read the Holy Quran with Arabic, Roman Urdu and English translations." },
+      { name: "description", content: "Read the Holy Quran — all 114 Surahs with Urdu translation." },
     ],
   }),
   component: () => (
@@ -18,8 +19,25 @@ export const Route = createFileRoute("/quran")({
 });
 
 function Page() {
+  const [surahs, setSurahs] = useState<SurahMeta[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const load = () => {
+    setLoading(true);
+    setError(null);
+    fetchSurahList()
+      .then(setSurahs)
+      .catch(() => setError("Unable to load Quran, please try again"))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
-    <div className="px-5 pt-8">
+    <div className="px-5 pt-8 animate-fade-in">
       <header className="text-center mb-6">
         <div className="mx-auto h-12 w-12 rounded-full bg-gradient-brown grid place-items-center text-brown-foreground shadow-card mb-2">
           <BookOpen className="h-6 w-6" />
@@ -33,32 +51,57 @@ function Page() {
         <p className="font-semibold">Namaz · Wudu · Kalimas</p>
       </Link>
 
-      <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">Surahs</h2>
-      <ul className="space-y-2">
-        {SURAHS.map((s) => (
-          <li key={s.n}>
-            <Link
-              to="/quran/$surah"
-              params={{ surah: String(s.n) }}
-              className="flex items-center justify-between bg-card rounded-2xl p-4 shadow-soft border border-border/50 hover:shadow-card transition"
-            >
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl bg-gradient-brown text-brown-foreground grid place-items-center font-bold text-sm">
-                  {s.n}
+      <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+        Surahs {surahs && `(${surahs.length})`}
+      </h2>
+
+      {loading && (
+        <div className="flex items-center justify-center py-16 text-muted-foreground">
+          <Loader2 className="h-6 w-6 animate-spin" />
+        </div>
+      )}
+
+      {error && (
+        <div className="bg-card rounded-2xl p-6 text-center border border-border/50">
+          <p className="text-sm text-foreground mb-3">{error}</p>
+          <button
+            onClick={load}
+            className="inline-flex items-center gap-2 bg-gradient-coral text-coral-foreground rounded-full px-4 py-2 text-sm font-medium"
+          >
+            <RefreshCw className="h-4 w-4" /> Retry
+          </button>
+        </div>
+      )}
+
+      {surahs && (
+        <ul className="space-y-2 pb-6">
+          {surahs.map((s) => (
+            <li key={s.number}>
+              <Link
+                to="/quran/$surah"
+                params={{ surah: String(s.number) }}
+                className="flex items-center justify-between bg-card rounded-2xl p-4 shadow-soft border border-border/50 hover:shadow-card transition active:scale-[0.99]"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="h-10 w-10 shrink-0 rounded-xl bg-gradient-brown text-brown-foreground grid place-items-center font-bold text-sm">
+                    {s.number}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-foreground truncate">{s.englishName}</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {s.englishNameTranslation} · {s.numberOfAyahs} verses
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-foreground">{s.name}</p>
-                  <p className="text-xs text-muted-foreground">{s.meaning} · {s.verses} verses</p>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="font-arabic text-lg text-primary">{s.name}</span>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
                 </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="font-arabic text-lg text-primary">{s.arabic}</span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
